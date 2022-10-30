@@ -4,8 +4,33 @@ import { Controller, useForm } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { cpf } from "cpf-cnpj-validator";
+import Countries from "./Countries";
+import Cities from "./Cities.js";
+import ListGroup from "react-bootstrap/ListGroup";
+import { useState } from "react";
 
 function FormComp() {
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  const addCountry = (country) => {
+    if (countries.includes(country)) {
+      countries.splice(countries.indexOf(country), 1);
+      setCountries([...countries]);
+    } else {
+      setCountries([...countries, country]);
+    }
+  };
+
+  const addCity = (city) => {
+    if (cities.includes(city)) {
+      cities.splice(cities.indexOf(city), 1);
+      setCities([...cities]);
+    } else {
+      setCities([...cities, city]);
+    }
+  };
+
   const {
     control,
     handleSubmit,
@@ -16,10 +41,14 @@ function FormComp() {
       email: "",
       phone: "",
       cpf: "",
+      countries: "",
+      cities: "",
     },
   });
 
   function formSubmit(userData) {
+    userData.countries = countries;
+    userData.cities = cities;
     console.log(userData);
   }
 
@@ -90,7 +119,7 @@ function FormComp() {
               inputProps={{
                 ref,
                 required: true,
-                autoFocus: true,
+                autoFocus: false,
               }}
               country={"br"}
               onlyCountries={["br"]}
@@ -100,7 +129,6 @@ function FormComp() {
               }}
               inputStyle={{
                 width: "100%",
-                
               }}
             />
           )}
@@ -123,11 +151,13 @@ function FormComp() {
               placeholder="Digite seu CPF"
               isInvalid={errors.cpf}
               onChange={(e) => {
-                field.onChange(e.target.value
-                  .replace(/\D/g, "")
-                  .replace( /(\d{3})(\d)/ , "$1.$2")
-                  .replace( /(\d{3})(\d)/ , "$1.$2")
-                  .replace( /(\d{3})(\d{1,2})$/ , "$1-$2"));
+                field.onChange(
+                  e.target.value
+                    .replace(/\D/g, "")
+                    .replace(/(\d{3})(\d)/, "$1.$2")
+                    .replace(/(\d{3})(\d)/, "$1.$2")
+                    .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+                );
               }}
               maxLength="14"
             />
@@ -145,20 +175,67 @@ function FormComp() {
         )}
       </Form.Group>
 
-      <Form.Select className="mb-3" aria-label="Default select example">
-        <option>País</option>
-        <option value="1">Brasil</option>
-        <option value="2">China</option>
-        <option value="3">EUA</option>
-      </Form.Select>
+      <Form.Group className="mb-3">
+        <Form.Label>Selecione um país</Form.Label>
+        <Form.Select
+          className="mb-3"
+          onChange={(e) => addCountry(e.target.value)}
+        >
+          <Countries />
+        </Form.Select>
+      </Form.Group>
 
-      <Form.Select className="mb-3" aria-label="Default select example">
-        <option>Cidades</option>
-        <option value="1">São Paulo</option>
-        <option value="2">Belo Horizonte</option>
-        <option value="3">Ribeirão Preto</option>
-      </Form.Select>
+      <Form.Group className="mb-3">
+        <Form.Label>Países selecionados</Form.Label>
+        <ListGroup>
+          {countries.length === 0 && (
+            <ListGroup.Item variant="danger">
+              Escolha ao menos um país
+            </ListGroup.Item>)}
+          {countries.map((country) => (
+            <ListGroup.Item
+              variant="success"
+              key={country}
+              value={country}
+              onClick={(e) => addCountry(e.target.outerText)}
+            >
+              {country}
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      </Form.Group>
 
+      <Form.Group className="mb-3">
+        <Form.Label>Selecione uma cidade</Form.Label>
+        <Form.Select
+          className="mb-3"
+          onChange={(e) => addCity(e.target.value)}
+        >
+          <Cities />
+        </Form.Select>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Cidades selecionadas</Form.Label>
+        <ListGroup>
+          {cities.length === 0 && (
+            <ListGroup.Item variant="danger">
+              Escolha ao menos uma cidade
+            </ListGroup.Item>)}
+          {cities.map((city) => (
+            <ListGroup.Item
+              variant="success"
+              key={city}
+              value={city}
+              onClick={(e) => addCity(e.target.outerText)}
+            >
+              {city}
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      </Form.Group>
+
+      
       <Button variant="primary" type="submit">
         Submit
       </Button>
