@@ -43,7 +43,7 @@ function FormComp() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      firstName: "",
+      name: "",
       email: "",
       phone: "",
       cpf: "",
@@ -56,6 +56,14 @@ function FormComp() {
     userData.countries = countries;
     userData.cities = cities;
     console.log(userData);
+    alert("Dados enviados com sucesso!\n" + 
+    "Nome: " + userData.name + "\n" +
+    "Email: " + userData.email + "\n" +
+    "Telefone: " + userData.phone + "\n" +
+    "CPF: " + userData.cpf + "\n" +
+    "Países: " + userData.countries + "\n" +
+    "Cidades: " + userData.cities + "\n"
+    );
   }
 
   return (
@@ -67,7 +75,7 @@ function FormComp() {
               <Form.Group className="mb-3">
                 <Form.Label>Nome</Form.Label>
                 <Controller
-                  name="firstName"
+                  name="name"
                   control={control}
                   rules={{ required: true }}
                   render={({ field }) => (
@@ -75,11 +83,11 @@ function FormComp() {
                       {...field}
                       type="text"
                       placeholder="Digite seu nome"
-                      isInvalid={errors.firstName}
+                      isInvalid={errors.name}
                     />
                   )}
                 />
-                {errors.firstName && (
+                {errors.name && (
                   <Form.Control.Feedback type="invalid">
                     Nome é obrigatório
                   </Form.Control.Feedback>
