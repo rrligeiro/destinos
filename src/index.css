@@ -1,6 +1,17 @@
 body {
     padding: 50px 0px 0px 0px;
-    z-index: 0; }
+    z-index: 0; 
+    background-color: #FAFAFA;
+}
+
+footer{
+    padding: 20px 0px 0px 0px;
+    background-color: #dbdeff;
+}
+
+nav{
+    background-color: #6d7dff;
+}
 
 .w-100 {
     width: 400px;
