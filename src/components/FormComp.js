@@ -8,6 +8,10 @@ import Countries from "./Countries";
 import Cities from "./Cities.js";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useState } from "react";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import CarouselComp from "./CarouselComp";
 
 function FormComp() {
   const [countries, setCountries] = useState([]);
@@ -53,6 +57,8 @@ function FormComp() {
   }
 
   return (
+    <Container>
+    <Row className="row-content">
     <Form onSubmit={handleSubmit(formSubmit)}>
       <Form.Group className="mb-3">
         <Form.Label>Nome</Form.Label>
@@ -175,71 +181,80 @@ function FormComp() {
         )}
       </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Selecione um país</Form.Label>
-        <Form.Select
-          className="mb-3"
-          onChange={(e) => addCountry(e.target.value)}
-        >
-          <Countries />
-        </Form.Select>
-      </Form.Group>
+      <Row className="row-content">
+        <Col md={6}>
+        <Form.Group className="mb-3">
+          <Form.Label>Selecione um país</Form.Label>
+          <Form.Select
+            className="mb-3"
+            onChange={(e) => addCountry(e.target.value)}
+          >
+            <Countries />
+          </Form.Select>
+        </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Países selecionados</Form.Label>
-        <ListGroup>
-          {countries.length === 0 && (
-            <ListGroup.Item variant="danger">
-              Escolha ao menos um país
-            </ListGroup.Item>)}
-          {countries.map((country) => (
-            <ListGroup.Item
-              variant="success"
-              key={country}
-              value={country}
-              onClick={(e) => addCountry(e.target.outerText)}
-            >
-              {country}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Países selecionados</Form.Label>
+          <ListGroup>
+            {countries.length === 0 && (
+              <ListGroup.Item variant="danger">
+                Escolha ao menos um país
+              </ListGroup.Item>
+            )}
+            {countries.map((country) => (
+              <ListGroup.Item
+                variant="success"
+                key={country}
+                value={country}
+                onClick={(e) => addCountry(e.target.outerText)}
+              >
+                {country}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Selecione uma cidade</Form.Label>
+          <Form.Select
+            className="mb-3"
+            onChange={(e) => addCity(e.target.value)}
+          >
+            <Cities />
+          </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Cidades selecionadas</Form.Label>
+          <ListGroup>
+            {cities.length === 0 && (
+              <ListGroup.Item variant="danger">
+                Escolha ao menos uma cidade
+              </ListGroup.Item>
+            )}
+            {cities.map((city) => (
+              <ListGroup.Item
+                variant="success"
+                key={city}
+                value={city}
+                onClick={(e) => addCity(e.target.outerText)}
+              >
+                {city}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Form.Group>
+        </Col>
+        <Col>
+          <CarouselComp addCity={addCity} cities={cities}/>
+        </Col>
+      </Row>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Selecione uma cidade</Form.Label>
-        <Form.Select
-          className="mb-3"
-          onChange={(e) => addCity(e.target.value)}
-        >
-          <Cities />
-        </Form.Select>
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>Cidades selecionadas</Form.Label>
-        <ListGroup>
-          {cities.length === 0 && (
-            <ListGroup.Item variant="danger">
-              Escolha ao menos uma cidade
-            </ListGroup.Item>)}
-          {cities.map((city) => (
-            <ListGroup.Item
-              variant="success"
-              key={city}
-              value={city}
-              onClick={(e) => addCity(e.target.outerText)}
-            >
-              {city}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Form.Group>
-
-      
       <Button variant="primary" type="submit">
         Submit
       </Button>
+
     </Form>
+    </Row>
+  </Container>
   );
 }
 

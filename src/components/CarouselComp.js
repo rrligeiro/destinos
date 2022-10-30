@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
-import rio2 from '../images/rio2.jpg';
-import rio from '../images/rio.jpg';
+import React, { useState } from "react";
+import Carousel from "react-bootstrap/Carousel";
+import Image from "react-bootstrap/Image";
+import ribeirao from "../images/ribeirao.jpg";
+import rio from "../images/rio.jpg";
+import bh from "../images/belohorizonte.jpg";
 
-function CarouselComp(){
-
+function CarouselComp(props) {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
@@ -14,44 +15,49 @@ function CarouselComp(){
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
-        <img
+        <Image
+          onClick={() => props.addCity("Rio de Janeiro, RJ, Brasil")}
+          style={{ cursor: "pointer" }}
           className="d-block w-100"
           src={rio}
           alt="First slide"
+          rounded
+          overflow="hidden"
         />
         <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3>Rio de Janeiro</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img
+        <Image
+          onClick={() => props.addCity("Ribeirão Preto, Estado de São Paulo, Brasil")}
+          style={{ cursor: "pointer" }}
           className="d-block w-100"
-          src={rio2}
-          alt="Second slide"
+          src={ribeirao}
+          alt="First slide"
+          rounded
+          overflow="hidden"
         />
-
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3>Ribeirão Preto</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img
+        <Image
+          onClick={() => props.addCity("Belo Horizonte - Minas Gerais, Brasil")}
+          style={{ cursor: "pointer" }}
           className="d-block w-100"
-          src={rio}
-          alt="Third slide"
+          src={bh}
+          alt="First slide"
+          rounded
+          overflow="hidden"
         />
 
         <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+          <h3>Belo Horizonte</h3>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
-    
   );
 }
 
