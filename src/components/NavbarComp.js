@@ -14,7 +14,8 @@ function NavbarComp() {
             height="30"
             className="d-inline-block align-top"
             alt="Destinos logo"
-          />
+          />{' '}
+          Destinos
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>

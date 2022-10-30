@@ -8,7 +8,7 @@ import bh from "../images/belohorizonte.jpg";
 function CarouselComp(props) {
   const [index, setIndex] = useState(0);
 
-  const handleSelect = (selectedIndex, e) => {
+  const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 

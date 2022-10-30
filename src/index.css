@@ -13,15 +13,19 @@ nav{
     background-color: #6d7dff;
 }
 
+.btn{
+    width: 100%;
+}
+
 .w-100 {
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    height: 380px;
 }
 
 .row-content {
     margin: 0px auto;
     padding: 50px 0px;
-    min-height: 400px; 
+    
 }
 
 .list-group{
@@ -33,6 +37,7 @@ nav{
 .list-group::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(240, 230, 230, 0.3);
+    box-shadow: inset 0 0 6px rgba(240, 230, 230, 0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
@@ -47,6 +52,7 @@ nav{
 {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(240, 230, 230, 0.3);
+    box-shadow: inset 0 0 6px rgba(240, 230, 230, 0.3);
 	background-color: #555;
 }
 
