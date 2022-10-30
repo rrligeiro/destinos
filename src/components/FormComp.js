@@ -18,6 +18,7 @@ function FormComp() {
   const [cities, setCities] = useState([]);
 
   const addCountry = (country) => {
+    errors.countries = true;
     if (countries.includes(country)) {
       countries.splice(countries.indexOf(country), 1);
       setCountries([...countries]);
@@ -27,6 +28,7 @@ function FormComp() {
   };
 
   const addCity = (city) => {
+    errors.cities = true;
     if (cities.includes(city)) {
       cities.splice(cities.indexOf(city), 1);
       setCities([...cities]);
@@ -202,7 +204,20 @@ function FormComp() {
               <Form.Group className="mb-3">
                 <Form.Label>Países selecionados</Form.Label>
                 <ListGroup>
-                  {countries.length === 0 && (
+                  {countries.length === 0 &&
+                    (errors.countries === undefined ||
+                      errors.countries === true) && (
+                      <ListGroup.Item variant="light">
+                        Escolha ao menos um país
+                      </ListGroup.Item>
+                    )}
+                  <Controller
+                    name="countries"
+                    control={control}
+                    rules={{ validate: () => countries.length > 0 }}
+                    render={({ field }) => <></>}
+                  />
+                  {errors.countries?.type === "validate" && (
                     <ListGroup.Item variant="danger">
                       Escolha ao menos um país
                     </ListGroup.Item>
@@ -233,7 +248,19 @@ function FormComp() {
               <Form.Group className="mb-3">
                 <Form.Label>Cidades selecionadas</Form.Label>
                 <ListGroup>
-                  {cities.length === 0 && (
+                  {cities.length === 0 &&
+                    (errors.cities === undefined || errors.cities === true) && (
+                      <ListGroup.Item variant="light">
+                        Escolha ao menos uma cidade
+                      </ListGroup.Item>
+                    )}
+                  <Controller
+                    name="cities"
+                    control={control}
+                    rules={{ validate: () => cities.length > 0 }}
+                    render={({ field }) => <></>}
+                  />
+                  {errors.cities?.type === "validate" && (
                     <ListGroup.Item variant="danger">
                       Escolha ao menos uma cidade
                     </ListGroup.Item>
